@@ -23,6 +23,9 @@ def filosofo(p):
     garfos[garfoEsquerda].acquire()
     print(f"Filósofo {p} pegou o garfo {garfoEsquerda}.")
 
+    # Aumenta a chance de deadlock
+    time.sleep(0.5)
+
     garfos[garfoDireita].acquire()
     print(f"Filósofo {p} pegou o garfo {garfoDireita}.")
 
