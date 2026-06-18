@@ -5,36 +5,33 @@ N = 5
 garfos = [threading.Lock() for _ in range(N)]
 
 def pensar(p):
-    print(f"Filósofo {p} está pensando.")
+    print(f"Filósofo {p} está pensando...")
     time.sleep(0.5)
 
 def comer(p):
-    print(f"Filósofo {p} está comendo.")
+    print(f"Filósofo {p} está comendo...")
     time.sleep(0.5)
 
 def filosofo(p):
-    left = p
-    right = (p + 1) % N
+    garfoEsquerda = p
+    garfoDireita = (p + 1) % N
 
     pensar(p)
 
-    print(f"Filósofo {p} está com fome.")
+    print(f"Filósofo {p} está com fome...")
 
-    garfos[left].acquire()
-    print(f"Filósofo {p} pegou o garfo {left}.")
+    garfos[garfoEsquerda].acquire()
+    print(f"Filósofo {p} pegou o garfo {garfoEsquerda}.")
 
-    # Aumenta a chance de deadlock
-    time.sleep(0.5)
-
-    garfos[right].acquire()
-    print(f"Filósofo {p} pegou o garfo {right}.")
+    garfos[garfoDireita].acquire()
+    print(f"Filósofo {p} pegou o garfo {garfoDireita}.")
 
     comer(p)
 
-    garfos[right].release()
-    garfos[left].release()
+    garfos[garfoDireita].release()
+    garfos[garfoEsquerda].release()
 
-    print(f"Filósofo {p} devolveu os garfos.")
+    print(f"Filósofo {p} comeu e devolveu os garfos.")
 
 threads = []
 
